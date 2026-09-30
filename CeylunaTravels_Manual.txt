@@ -1,0 +1,96 @@
+Ceyluna Travels Travel Platform Manual
+=========================================
+
+Welcome to the Ceyluna Travels Travel Platform manual. This document provides a comprehensive guide for developers, system administrators, and end-users (travelers) on how to initialize, operate, and extend the Ceyluna Travels travel planner and operator platform.
+
+Ceyluna Travels is a premium, React-based Single Page Application (Vite + TypeScript + Tailwind CSS) designed for Sri Lankan travel operators, centered around Tangalle. It features an interactive, dynamic 10-step tour builder, a dual-role authentication simulator, individual customer dashboards, and an executive administration dashboard.
+
+1. System Quick Start
+---------------------
+To run the server locally, clone or copy the project directory to your workstation and execute the following commands in your shell:
+
+1. Install Dependencies:
+   npm install
+
+2. Start the Vite Development Server:
+   npm run dev
+   (Note: If the default port 5173 is in use, Vite will automatically select the next available port, e.g., 5174).
+
+3. Compile and Type-Check:
+   npx tsc --noEmit
+
+4. Build Production Bundle:
+   npm run build
+   This generates a high-efficiency production distribution inside the dist/ directory.
+
+
+2. Dual-Role Authentication & Simulator Accounts
+------------------------------------------------
+Ceyluna Travels ships with an authentication workflow (src/pages/AuthPages.tsx) that routes users based on their credentials and chosen roles.
+
+User Roles:
+- Client (Traveler): Registers or logs in using standard credentials. Once authenticated, they are redirected to their personalized customer dashboard.
+- Administrator (Operator): Authenticates using the preconfigured admin account to access metrics, pending actions, and booking pipelines.
+
+Preconfigured Administrator Account:
+To access the Admin Control Centre, go to the Sign In page at /auth and enter:
+- Email: kawodyathashika@gmail.com
+- Password: Kawodya2001@
+
+Simulation details: Any other email/password input combination will default to a client traveler simulation and direct you to the Customer Dashboard.
+
+
+3. The 10-Step Interactive Tour Builder
+--------------------------------------
+The Interactive Tour Builder (src/pages/BuildTourPage.tsx) is a 10-step wizard that enables travelers to build their dream custom Sri Lankan itinerary with instant, dynamic pricing.
+
+Wizard Steps:
+1. Pickup Location: Select from Start from Tangalle, Airport Transfer (CMB/HRI), or Custom Location.
+2. Travel Dates: Select Arrival and Departure dates to calculate tour duration in Days and Nights.
+3. Travelers Group: Increment or decrement adult group members (ages 12+) and children (ages 2-11). Select preferred language.
+4. Select Destinations: Toggle destinations (e.g., Colombo, Kandy, Nuwara Eliya, Ella, Yala, Mirissa, Galle Fort, Sigiriya).
+5. Accommodation Class: Select Budget, Standard, Boutique, Premium, or Luxury property tiers.
+6. Vehicle Selection: Choose Sedan, Tour Van, Luxury Mini-Coach, or SUV. Warns if size is insufficient.
+7. Activities & Experiences: Add excursions (e.g., Sigiriya climb, Mirissa whale watching, Udawalawe Safari).
+8. Additional Services: English-speaking guide, child safety seats, extra luggage vehicle, photography package.
+9. Review Itinerary: View auto-compiled day-by-day schedule.
+10. Confirm & Book: Press "Confirm & Save Tour" to save the booking quote and view dashboard.
+
+
+4. Pricing Engine & Cost Calculator Breakdown
+---------------------------------------------
+Pricing calculations update instantly upon any traveler input modification:
+
+* Transportation: (Vehicle Daily Rate * Total Days) + Fuel Estimates (kilometers based on destinations' distanceFromTangalle * 1.5 * perKmRate * 1.25) + Driver Wages ($25/day if driver not included) + Airport Surcharge ($85 CMB / $35 HRI) + Flat Highways fee ($35).
+* Accommodation: Rooms count (Adults / 2 rounded up) * hotel tier tariff * nights. Hotel rates per room-night: Budget ($35), Standard ($65), Boutique ($120), Premium ($185), Luxury ($380).
+* Excursions: (Base Excursion Price * Adults) + (50% * Base Price * Children).
+* Special Services: English guide ($40/day), cargo car ($60/day), child seat ($15 flat), photography ($120 flat).
+* Fees & Discounts: 8% Ceyluna Travels planning fee added. 5% group discount deducted if total traveler count exceeds 4.
+* Currency Conversion: USD ($), EUR (e), GBP (pounds), LKR (Rs.) supported with live-updating rate multiplier.
+
+
+5. Customer Dashboard Features
+------------------------------
+The Customer Dashboard (src/pages/CustomerDashboard.tsx) provides full booking control:
+- Saved Quotes Panel: Displays saved tours, Reference IDs, prices, and status.
+- Standalone Custom Requests: Displays standalone submitted inquiry items.
+- Detailed Itinerary View: Renders day-by-day accommodation, activities, and routes.
+- Print: Native print styles build a clean physical brochure.
+- WhatsApp Link: Direct link to WhatsApp (+94 76 767 4827) to request itinerary revisions.
+
+
+6. Admin Control Centre Features
+--------------------------------
+The Admin Control Centre (src/pages/AdminDashboard.tsx) allows operator oversight:
+- Pipeline Statistics: Earnings sum, system web traffic, conversion rate, pending items count.
+- Quoted Reservations List: Review client quotes, approve/confirm reservations, or delete stale quotes.
+- Inbound Inquiries List: Access names, emails, phone numbers, and dietary remarks for custom planner inquiries.
+- Fleet & Activities: Quick reference cards for vehicle capacities and excursion prices.
+
+
+7. Contact & Support Details
+----------------------------
+All inquiry emails and support requests route to:
+- Email Support: ceylunatravelstours@gmail.com
+- WhatsApp Support: +94 76 767 4827
+- Tangalle Office, Southern Province, Sri Lanka.

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ceyluna Travels</title>
+    <script>
+      // GitHub Pages SPA fallback: send unknown paths back to index.html
+      // keeping the original path in ?p=
+      var base = '/Ceyluna_Travels/';
+      var path = location.pathname.replace(base, '');
+      location.replace(base + '?p=/' + path + location.search.replace('?', '&') + location.hash);
+    </script>
+  </head>
+  <body></body>
+</html>
