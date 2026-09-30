@@ -5,7 +5,7 @@ import path from 'path'
 export default defineConfig(({ mode }) => ({
     plugins: [react()],
 
-    base: mode === 'github' ? '/Ceyluna_Travels/' : '/',
+    base: mode === 'github' ? '/Ceyluna_Travel/' : '/',
 
     resolve: {
         alias: {
