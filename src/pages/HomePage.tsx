@@ -163,13 +163,13 @@ function PlanTripSection() {
     const { ref, inView } = useInView();
     return (
         <section ref={ref} className="relative -mt-20 z-20 container-custom">
-            <div className={`bg-white rounded-2xl shadow-premium p-6 sm:p-8 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className={`bg-white dark:bg-surface-800 rounded-2xl shadow-premium p-6 sm:p-8 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                 <div className="flex flex-col lg:flex-row items-center gap-6">
                     <div className="flex-1 text-center lg:text-left">
-                        <h2 className="text-2xl font-display font-bold text-surface-900 mb-2">
+                        <h2 className="text-2xl font-display font-bold text-surface-900 dark:text-white mb-2">
                             Ready to Explore Sri Lanka?
                         </h2>
-                        <p className="text-surface-500">Tell us your dream trip and we'll make it happen.</p>
+                        <p className="text-surface-500 dark:text-surface-400">Tell us your dream trip and we'll make it happen.</p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
                         <Link to="/build-tour" className="btn-primary justify-center">
@@ -202,7 +202,7 @@ function DestinationsSection() {
         : featured.filter(d => d.category.includes(activeCategory.toLowerCase()));
 
     return (
-        <section ref={ref} className="section-padding bg-surface-50" id="destinations-section">
+        <section ref={ref} className="section-padding bg-surface-50 dark:bg-surface-900" id="destinations-section">
             <div className="container-custom">
                 {/* Header */}
                 <div className={`text-center mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -224,7 +224,7 @@ function DestinationsSection() {
                             className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 
                 ${activeCategory === cat
                                     ? 'bg-primary-600 text-white shadow-md'
-                                    : 'bg-white text-surface-600 hover:bg-primary-50 hover:text-primary-700 border border-surface-200'
+                                    : 'bg-white dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-400 border border-surface-200 dark:border-surface-700'
                                 }`}
                         >
                             {cat}
@@ -261,11 +261,11 @@ function DestinationsSection() {
                                 </div>
                             </div>
                             <div className="p-4">
-                                <p className="text-sm text-surface-500 line-clamp-2">{dest.shortDescription}</p>
+                                <p className="text-sm text-surface-500 dark:text-surface-400 line-clamp-2">{dest.shortDescription}</p>
                                 <div className="flex items-center justify-between mt-3">
                                     <div className="flex flex-wrap gap-1">
                                         {dest.category.slice(0, 2).map(c => (
-                                            <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-primary-50 text-primary-600 font-medium capitalize">
+                                            <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-primary-50 dark:bg-primary-900/40 text-primary-600 dark:text-primary-400 font-medium capitalize">
                                                 {c}
                                             </span>
                                         ))}
@@ -296,7 +296,7 @@ function PackagesSection() {
     const featured = tourPackages.filter(p => p.featured).slice(0, 4);
 
     return (
-        <section ref={ref} className="section-padding" id="packages-section">
+        <section ref={ref} className="section-padding dark:bg-surface-950" id="packages-section">
             <div className="container-custom">
                 <div className={`text-center mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <span className="badge-accent mb-4">🎒 Tour Packages</span>
@@ -333,23 +333,23 @@ function PackagesSection() {
                                 <div className="flex-1 p-5 flex flex-col">
                                     <div className="flex items-start justify-between gap-2 mb-2">
                                         <div>
-                                            <p className="text-xs font-semibold text-primary-600 uppercase tracking-wide">{pkg.tagline}</p>
-                                            <h3 className="text-lg font-display font-bold text-surface-900 mt-1">{pkg.name}</h3>
+                                            <p className="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wide">{pkg.tagline}</p>
+                                            <h3 className="text-lg font-display font-bold text-surface-900 dark:text-white mt-1">{pkg.name}</h3>
                                         </div>
                                     </div>
-                                    <p className="text-sm text-surface-500 line-clamp-2 mb-3">{pkg.description}</p>
+                                    <p className="text-sm text-surface-500 dark:text-surface-400 line-clamp-2 mb-3">{pkg.description}</p>
                                     <div className="flex flex-wrap gap-2 mb-4">
-                                        <span className="flex items-center gap-1 text-xs text-surface-500">
+                                        <span className="flex items-center gap-1 text-xs text-surface-500 dark:text-surface-400">
                                             <Calendar size={13} /> {pkg.duration} Days
                                         </span>
-                                        <span className="flex items-center gap-1 text-xs text-surface-500">
+                                        <span className="flex items-center gap-1 text-xs text-surface-500 dark:text-surface-400">
                                             <MapPin size={13} /> {pkg.destinations.length} Destinations
                                         </span>
                                     </div>
                                     <div className="mt-auto flex items-center justify-between">
                                         <div>
                                             <span className="text-xs text-surface-400">From</span>
-                                            <span className="text-2xl font-bold text-primary-700 ml-1">${pkg.startingPrice}</span>
+                                            <span className="text-2xl font-bold text-primary-700 dark:text-primary-400 ml-1">${pkg.startingPrice}</span>
                                             <span className="text-xs text-surface-400">/person</span>
                                         </div>
                                         <Link to={`/packages/${pkg.slug}`} className="btn-primary text-sm !px-5 !py-2.5">
@@ -430,7 +430,7 @@ function HowItWorksSection() {
     ];
 
     return (
-        <section ref={ref} className="section-padding bg-surface-50" id="how-it-works">
+        <section ref={ref} className="section-padding bg-surface-50 dark:bg-surface-900" id="how-it-works">
             <div className="container-custom">
                 <div className={`text-center mb-14 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <span className="badge mb-4">🗺️ How It Works</span>
@@ -457,8 +457,8 @@ function HowItWorksSection() {
                                     {step.num}
                                 </span>
                             </div>
-                            <h3 className="text-lg font-display font-bold text-surface-900 mb-2">{step.title}</h3>
-                            <p className="text-sm text-surface-500 leading-relaxed">{step.description}</p>
+                            <h3 className="text-lg font-display font-bold text-surface-900 dark:text-white mb-2">{step.title}</h3>
+                            <p className="text-sm text-surface-500 dark:text-surface-400 leading-relaxed">{step.description}</p>
                             {i < steps.length - 1 && (
                                 <div className="hidden lg:block absolute top-10 -right-4 w-8">
                                     <ChevronRight size={24} className="text-primary-300" />
@@ -484,7 +484,7 @@ function TestimonialsSection() {
     const { ref, inView } = useInView();
 
     return (
-        <section ref={ref} className="section-padding" id="testimonials">
+        <section ref={ref} className="section-padding dark:bg-surface-950" id="testimonials">
             <div className="container-custom">
                 <div className={`text-center mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <span className="badge mb-4">💬 Testimonials</span>
@@ -508,14 +508,14 @@ function TestimonialsSection() {
                                     <Star key={j} size={16} className={j < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-surface-200'} />
                                 ))}
                             </div>
-                            <h4 className="font-display font-bold text-surface-900 mb-2">{review.title}</h4>
-                            <p className="text-sm text-surface-500 leading-relaxed mb-4 line-clamp-4">{review.content}</p>
-                            <div className="pt-4 border-t border-surface-100 flex items-center justify-between">
+                            <h4 className="font-display font-bold text-surface-900 dark:text-white mb-2">{review.title}</h4>
+                            <p className="text-sm text-surface-500 dark:text-surface-400 leading-relaxed mb-4 line-clamp-4">{review.content}</p>
+                            <div className="pt-4 border-t border-surface-100 dark:border-surface-700 flex items-center justify-between">
                                 <div>
-                                    <p className="text-sm font-semibold text-surface-800">{review.customerName}</p>
+                                    <p className="text-sm font-semibold text-surface-800 dark:text-surface-200">{review.customerName}</p>
                                     <p className="text-xs text-surface-400">{review.country}</p>
                                 </div>
-                                <span className="text-[10px] text-primary-600 bg-primary-50 px-2 py-1 rounded-full font-medium">
+                                <span className="text-[10px] text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/40 px-2 py-1 rounded-full font-medium">
                                     {review.tourName}
                                 </span>
                             </div>
@@ -540,7 +540,7 @@ function InspirationSection() {
     ];
 
     return (
-        <section ref={ref} className="section-padding bg-surface-50" id="inspiration">
+        <section ref={ref} className="section-padding bg-surface-50 dark:bg-surface-900" id="inspiration">
             <div className="container-custom">
                 <div className={`text-center mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <span className="badge mb-4">📸 Travel Inspiration</span>
@@ -576,7 +576,7 @@ function FAQSection() {
     const [openIdx, setOpenIdx] = useState<number | null>(0);
 
     return (
-        <section ref={ref} className="section-padding" id="faq">
+        <section ref={ref} className="section-padding dark:bg-surface-950" id="faq">
             <div className="container-custom">
                 <div className="flex flex-col lg:flex-row gap-12">
                     <div className={`lg:w-5/12 transition-all duration-700 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
@@ -584,7 +584,7 @@ function FAQSection() {
                         <h2 className="section-heading mb-4">
                             Frequently Asked <span className="gradient-text">Questions</span>
                         </h2>
-                        <p className="text-surface-500 mb-6">
+                        <p className="text-surface-500 dark:text-surface-400 mb-6">
                             Everything you need to know about planning your Sri Lankan adventure. Can't find what you're looking for? Contact us anytime!
                         </p>
                         <Link to="/contact" className="btn-primary">
@@ -597,21 +597,21 @@ function FAQSection() {
                         {faqs.map((faq, i) => (
                             <div
                                 key={i}
-                                className={`rounded-xl border transition-all duration-300 ${openIdx === i ? 'border-primary-200 bg-primary-50/50 shadow-sm' : 'border-surface-200 bg-white hover:border-surface-300'}`}
+                                className={`rounded-xl border transition-all duration-300 ${openIdx === i ? 'border-primary-200 dark:border-primary-800 bg-primary-50/50 dark:bg-primary-950/30 shadow-sm' : 'border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 hover:border-surface-300 dark:hover:border-surface-600'}`}
                             >
                                 <button
                                     onClick={() => setOpenIdx(openIdx === i ? null : i)}
                                     className="w-full flex items-center justify-between p-5 text-left"
                                 >
-                                    <span className={`font-medium text-sm pr-4 ${openIdx === i ? 'text-primary-700' : 'text-surface-800'}`}>
+                                    <span className={`font-medium text-sm pr-4 ${openIdx === i ? 'text-primary-700 dark:text-primary-400' : 'text-surface-800 dark:text-surface-200'}`}>
                                         {faq.question}
                                     </span>
-                                    <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors ${openIdx === i ? 'bg-primary-600 text-white' : 'bg-surface-100 text-surface-500'}`}>
+                                    <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors ${openIdx === i ? 'bg-primary-600 text-white' : 'bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-400'}`}>
                                         {openIdx === i ? <Minus size={14} /> : <Plus size={14} />}
                                     </span>
                                 </button>
                                 <div className={`overflow-hidden transition-all duration-300 ${openIdx === i ? 'max-h-48' : 'max-h-0'}`}>
-                                    <p className="px-5 pb-5 text-sm text-surface-500 leading-relaxed">{faq.answer}</p>
+                                    <p className="px-5 pb-5 text-sm text-surface-500 dark:text-surface-400 leading-relaxed">{faq.answer}</p>
                                 </div>
                             </div>
                         ))}

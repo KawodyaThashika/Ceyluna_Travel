@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, ArrowRight, Heart } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Footer() {
@@ -16,7 +16,7 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-surface-900 text-surface-300">
+        <footer className="bg-surface-900 dark:bg-surface-950 text-surface-300">
             {/* Newsletter Section */}
             <div className="border-b border-surface-700/50">
                 <div className="container-custom py-12">
@@ -147,7 +147,7 @@ export default function Footer() {
                             <div className="pt-4">
                                 <Link
                                     to="/contact"
-                                    className="btn-secondary text-sm !py-2.5 !border-surface-600 !text-black hover:!text-black hover:!border-primary-500"
+                                    className="btn-secondary text-sm !py-2.5 !border-surface-600 !text-white hover:!text-white hover:!border-primary-500"
                                 >
                                     Send a Message
                                 </Link>
@@ -163,9 +163,6 @@ export default function Footer() {
                     <p className="text-sm text-surface-500">
                         © {new Date().getFullYear()} Ceyluna Travels. All rights reserved.
                     </p>
-                    {/* <p className="text-sm text-surface-500 flex items-center gap-1">
-                        Made with <Heart size={14} className="text-red-400 fill-red-400" /> in Sri Lanka
-                    </p> */}
                 </div>
             </div>
         </footer>

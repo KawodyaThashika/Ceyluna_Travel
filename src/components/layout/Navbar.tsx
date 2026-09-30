@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Mail, MapPin, ChevronDown, User, LayoutDashboard } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { Menu, X, Phone, Mail, MapPin, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 const navLinks = [
     { label: 'Home', path: '/' },
@@ -20,20 +20,19 @@ export default function Navbar() {
     const lastScrollY = useRef(0);
     const location = useLocation();
     const isHome = location.pathname === '/';
+    const { theme, toggleTheme, isDark } = useTheme();
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             setScrolled(currentScrollY > 20);
 
-            // Only start hiding once we've scrolled past the top-bar/nav height,
-            // and only react to meaningful movement so tiny jitters don't flicker it.
             if (Math.abs(currentScrollY - lastScrollY.current) < 6) return;
 
             if (currentScrollY > lastScrollY.current && currentScrollY > 120) {
-                setHidden(true); // scrolling down -> hide
+                setHidden(true);
             } else {
-                setHidden(false); // scrolling up -> show
+                setHidden(false);
             }
             lastScrollY.current = currentScrollY;
         };
@@ -45,18 +44,23 @@ export default function Navbar() {
         setIsOpen(false);
     }, [location]);
 
-    // Keep the bar visible whenever the mobile menu is open, so it can't
-    // slide away while someone is using it.
     useEffect(() => {
         if (isOpen) setHidden(false);
     }, [isOpen]);
 
     const navBg = scrolled || !isHome
-        ? 'bg-white/95 backdrop-blur-lg shadow-sm border-b border-surface-100'
+        ? isDark
+            ? 'bg-surface-900/95 backdrop-blur-lg shadow-sm border-b border-surface-700'
+            : 'bg-white/95 backdrop-blur-lg shadow-sm border-b border-surface-100'
         : 'bg-transparent';
 
-    const textColor = scrolled || !isHome ? 'text-surface-800' : 'text-white';
-    const logoColor = scrolled || !isHome ? 'text-primary-700' : 'text-white';
+    const textColor = scrolled || !isHome
+        ? isDark ? 'text-surface-200' : 'text-surface-800'
+        : 'text-white';
+
+    const logoColor = scrolled || !isHome
+        ? isDark ? 'text-primary-400' : 'text-primary-700'
+        : 'text-white';
 
     return (
         <>
@@ -106,7 +110,7 @@ export default function Navbar() {
                                 <span className={`text-xl font-display font-bold ${logoColor} transition-colors`}>
                                     Ceyluna<span className="text-accent-500">Travels</span>
                                 </span>
-                                <span className={`hidden sm:block text-[10px] tracking-widest uppercase ${scrolled || !isHome ? 'text-surface-400' : 'text-white/70'} -mt-1`}>
+                                <span className={`hidden sm:block text-[10px] tracking-widest uppercase ${scrolled || !isHome ? (isDark ? 'text-surface-500' : 'text-surface-400') : 'text-white/70'} -mt-1`}>
                                     Premium Sri Lanka Tours
                                 </span>
                             </div>
@@ -120,8 +124,10 @@ export default function Navbar() {
                                     to={link.path}
                                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 
                     ${location.pathname === link.path
-                                            ? 'text-primary-600 bg-primary-50'
-                                            : `${textColor} hover:text-primary-600 hover:bg-primary-50/80`
+                                            ? isDark
+                                                ? 'text-primary-400 bg-primary-900/50'
+                                                : 'text-primary-600 bg-primary-50'
+                                            : `${textColor} ${isDark ? 'hover:text-primary-400 hover:bg-primary-900/30' : 'hover:text-primary-600 hover:bg-primary-50/80'}`
                                         }`}
                                 >
                                     {link.label}
@@ -129,8 +135,24 @@ export default function Navbar() {
                             ))}
                         </div>
 
-                        {/* CTA & Mobile Toggle */}
+                        {/* Theme Toggle + CTA + Mobile Toggle */}
                         <div className="flex items-center gap-3">
+                            {/* Dark/Light Mode Toggle */}
+                            <button
+                                onClick={toggleTheme}
+                                className={`theme-toggle ${scrolled || !isHome
+                                    ? isDark
+                                        ? 'bg-surface-800 hover:bg-surface-700 text-amber-400'
+                                        : 'bg-surface-100 hover:bg-surface-200 text-surface-600'
+                                    : 'bg-white/10 hover:bg-white/20 text-white'
+                                    }`}
+                                aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+                                id="theme-toggle-btn"
+                            >
+                                <Sun size={18} className="sun-icon" />
+                                <Moon size={18} className="moon-icon" />
+                            </button>
+
                             <a href="https://wa.me/94767674827" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex btn-primary text-sm !px-5 !py-2.5">
                                 Get a Quote
                             </a>
@@ -147,7 +169,7 @@ export default function Navbar() {
 
                 {/* Mobile Menu */}
                 <div className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-[500px]' : 'max-h-0'}`}>
-                    <div className="bg-white border-t border-surface-100 shadow-lg">
+                    <div className={`${isDark ? 'bg-surface-900' : 'bg-white'} border-t ${isDark ? 'border-surface-700' : 'border-surface-100'} shadow-lg`}>
                         <div className="container-custom py-4 space-y-1">
                             {navLinks.map((link) => (
                                 <Link
@@ -155,14 +177,18 @@ export default function Navbar() {
                                     to={link.path}
                                     className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors
                     ${location.pathname === link.path
-                                            ? 'text-primary-700 bg-primary-50'
-                                            : 'text-surface-700 hover:bg-surface-50'
+                                            ? isDark
+                                                ? 'text-primary-400 bg-primary-900/40'
+                                                : 'text-primary-700 bg-primary-50'
+                                            : isDark
+                                                ? 'text-surface-300 hover:bg-surface-800'
+                                                : 'text-surface-700 hover:bg-surface-50'
                                         }`}
                                 >
                                     {link.label}
                                 </Link>
                             ))}
-                            <div className="pt-3 border-t border-surface-100 space-y-2">
+                            <div className={`pt-3 border-t ${isDark ? 'border-surface-700' : 'border-surface-100'} space-y-2`}>
                                 <a href="https://wa.me/94767674827" target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-sm justify-center">
                                     Get a Free Quote
                                 </a>
