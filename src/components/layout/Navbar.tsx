@@ -97,7 +97,7 @@ export default function Navbar() {
                         <Link to="/" className="flex items-center gap-2 group">
                             <div className="w-10 h-10 flex items-center justify-center">
                                 <img
-                                    src="https://raw.githubusercontent.com/KawodyaThashika/Ceyluna_Travels/refs/heads/main/public/logo.png"
+                                    src="https://raw.githubusercontent.com/KawodyaThashika/Ceyluna_Travel/refs/heads/main/public/logo.png"
                                     alt="Ceyluna Travels"
                                     className="w-10 h-10 object-contain group-hover:scale-105 transition-transform duration-200"
                                 />
